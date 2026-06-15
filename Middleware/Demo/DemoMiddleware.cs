@@ -18,7 +18,7 @@ namespace AspKnP231.Middleware.Demo
         // За такої схеми інжекція сервісів здійснюється у метод, утворюючи вільний
         // перелік та порядок параметрів 
         public async Task InvokeAsync(HttpContext context, IHashService hashService,
-            IKdfService scopedService)
+            ScopedService scopedService)
         {
             // Логіка "прямого ходу"
             // context - той самий HttpContext, що буде спільним як для 

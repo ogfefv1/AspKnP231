@@ -27,7 +27,7 @@ builder.Services.AddSession(options =>                 // https://learn.microsof
 });                                                    // 
 
 // Контекст даних (EF) реєструється як окремий сервіс зі своїми особливостями
-builder.Services.AddDbContext<DataContext>(options =>
+builder.Services.AddDbContext<AspKnP231.Data.DataContext>(options =>         /*< DataContext > - error*/
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("MainDb")));
 
