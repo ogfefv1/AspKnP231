@@ -1,4 +1,5 @@
 ﻿using AspKnP231.Services.Hash;
+using AspKnP231.Services.Scoped;
 
 namespace AspKnP231.Middleware.Demo
 {
@@ -16,12 +17,18 @@ namespace AspKnP231.Middleware.Demo
         // InvokeAsync - логіка обробника, яка виконується для кожного запиту - багаторазово
         // За такої схеми інжекція сервісів здійснюється у метод, утворюючи вільний
         // перелік та порядок параметрів 
-        public async Task InvokeAsync(HttpContext context, IHashService hashService)
+        public async Task InvokeAsync(HttpContext context, IHashService hashService,
+            ScopedService scopedService)
         {
             // Логіка "прямого ходу"
             // context - той самий HttpContext, що буде спільним як для 
             // контролерів, так і для Razor, відповідно може вживатись для 
             // передачі даних від Middleware
+
+
+            // розширюємо перевірку об'єктів-сервісів: чи постійні вони у різних точках
+            context.Items.Add("FromDemoMiddleware", hashService.GetHashCode());
+            context.Items.Add("MiddlewareScopedHash", scopedService.GetHashCode());
 
 
             // Call the next delegate/middleware in the pipeline.

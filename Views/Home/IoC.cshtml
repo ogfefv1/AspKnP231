@@ -2,6 +2,7 @@
     за різновидом - це інжекція до властивості (Property)
 *@
 @inject AspKnP231.Services.Hash.IHashService hashService
+@inject AspKnP231.Services.Scoped.ScopedService scopedService
 
 @{
     ViewData["Title"] = "IoC";
@@ -71,6 +72,24 @@
 </ul>
 
 <h2>Життєві цикли сервісів</h2>
-@hashService.GetHashCode()
-<br />
-@ViewData["hashCode"]
+<p>
+    Оновіть сторінку для контролю змін
+</p>
+<table class="table">
+    <tbody>
+        <tr><td></td><td>Middleware</td><td>Controller</td><td>Razor</td></tr>
+        <tr>
+            <td>Singleton</td>
+            <td>@Context.Items["FromDemoMiddleware"]</td>
+            <td>@ViewData["hashCode"]</td>
+            <td>@hashService.GetHashCode()</td>
+        </tr>
+        <tr>
+            <td>Scoped</td>
+            <td>@Context.Items["MiddlewareScopedHash"]</td>
+            <td>@ViewData["ControllerScopedHash"]</td>
+            <td>@scopedService.GetHashCode()</td>
+        </tr>
+        <tr><td>Transient</td><td></td><td></td><td></td></tr>
+    </tbody>
+</table>
