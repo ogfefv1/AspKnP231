@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text.Json;
 using AspKnP231.Models;
 using AspKnP231.Models.Home;
 using AspKnP231.Services.Hash;
@@ -18,6 +19,36 @@ namespace AspKnP231.Controllers
             _hashService = hashService;                       // параметр(и) конструктора того ж типу даних
             _scopedService = scopedService;
         }
+
+
+        public IActionResult Forms()
+        {
+            HomeFormsViewModel viewModel = new();
+            if (HttpContext.Session.Keys.Contains(nameof(HomeFormsFormModel)))
+            {
+                // є збережені у сесії дані, тоді відновлюємо, використовуємо та видаляємо
+                viewModel.FormModel = JsonSerializer.Deserialize<HomeFormsFormModel>(
+                    HttpContext.Session.GetString(nameof(HomeFormsFormModel))!
+                );
+                HttpContext.Session.Remove(nameof(HomeFormsFormModel));
+            }
+
+            return View(viewModel);
+        }
+
+        // метод для прийому даних форми, збереження у сесії та передачі редирект
+        public IActionResult FormReceiver(HomeFormsFormModel formModel)
+        {
+            HttpContext.Session.SetString(
+                nameof(HomeFormsFormModel),
+                JsonSerializer.Serialize(formModel)
+            );
+
+            return RedirectToAction(nameof(Forms));   //  /Home/Forms - формує ASP
+        }
+
+
+
 
         public IActionResult Middleware()
         {
