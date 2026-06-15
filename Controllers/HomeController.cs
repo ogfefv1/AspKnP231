@@ -16,6 +16,11 @@ namespace AspKnP231.Controllers
             _hashService = hashService;                       // 
         }
 
+        public IActionResult Middleware()
+        {
+            return View();
+        }
+
         public IActionResult IoC()
         {
 
@@ -27,7 +32,7 @@ namespace AspKnP231.Controllers
         // Зв'язування моделі відбувається коли ми її зазначаємо вхідними параметром Action
         // В старих ASP, якщо модель не є обов'язковою, то необхідно
         // зазначати Nullable (HomeModelsFormModel?)
-        public IActionResult Models(HomeModelsFormModel formModel)
+        public IActionResult Models(DemoMiddleware formModel)
         {
             // Особливість нових ASP - модель форми, як об'єкт, створюється
             // у будь-якому випадку, навіть якщо немає даних від форми

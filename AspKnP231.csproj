@@ -5,5 +5,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-	  	 
-	</Project>
+
+	<ItemGroup>
+		<EditorConfigFiles Remove="C:\Users\egordzhemlikhanov\source\repos\AspKnP231\.editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="C:\Users\egordzhemlikhanov\source\repos\AspKnP231\.editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\img\" />
+	</ItemGroup>
+
+</Project>

@@ -2,7 +2,7 @@
 
 namespace AspKnP231.Models.Home
 {
-    public class HomeModelsFormModel
+    public class DemoMiddleware
     {
         [FromForm(Name = "user-login")]
         public String UserLogin { get; set; } = null!;
