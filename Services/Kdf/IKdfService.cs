@@ -1,6 +1,6 @@
 ﻿namespace AspKnP231.Services.Kdf
 {
-    internal interface IKdfService
+    public interface IKdfService
     {
         String Dk(String salt, String password);
     }

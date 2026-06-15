@@ -2,6 +2,7 @@
 using AspKnP231.Middleware.Demo;
 using AspKnP231.Services.Scoped;
 using AspKnP231.Services.Kdf;
+using AspKnP231.Services.Storage;
 using AspKnP231.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ builder.Services.AddControllersWithViews();
 // builder.Services.AddSingleton<IHashService, Md5HashService>();
 builder.Services.AddHash();   // замінено на розширення (див. HashExtension)
 builder.Services.AddKdf();
+builder.Services.AddStorage();
 
 builder.Services.AddScoped<ScopedService>();    // без інтерфейсу - тільки один параметр типу
 

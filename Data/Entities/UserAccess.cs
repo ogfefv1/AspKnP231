@@ -18,6 +18,8 @@
 
         public DateTime? DeletedAt { get; set; }
 
+        public String? AvatarFilename { get; set; }
+
 
 
         // Навігаційні властивості - посилання на інші сутності - спрощена схема зв'язування даних

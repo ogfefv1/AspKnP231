@@ -50,8 +50,19 @@
                         <li class="nav-item" title="Робота з формами">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Forms"><i class="bi bi-card-checklist header-icon"></i></a>
                         </li>
-
                     </ul>
+                    <div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-success me-2"
+                                data-bs-toggle="modal" data-bs-target="#authModal">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                        </button>
+
+                        <a asp-controller="User" asp-action="SignUp"
+                           title="Реєстрація нового користувача"
+                           class="btn btn-outline-secondary"><i class="bi bi-person-add"></i></a>
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -67,6 +78,37 @@
             &copy; 2026 - AspKnP231 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="authModalLabel">Автентифікація</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="auth-form">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="user-login-addon"><i class="bi bi-key"></i></span>
+                            <input type="text" class="form-control" name="user-login"
+                                   placeholder="Login" aria-label="Login" aria-describedby="user-login-addon" />
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="user-password-addon"><i class="bi bi-lock"></i></span>
+                            <input type="text" class="form-control" name="user-password"
+                                   placeholder="Password" aria-label="Password" aria-describedby="user-password-addon" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button form="auth-form" type="submit" class="btn btn-primary">Вхід</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

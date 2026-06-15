@@ -1,6 +1,6 @@
 namespace AspKnP231.Models
 {
-    public class ErrorViewModel
+    public class UserSignupFormModel
     {
         public string? RequestId { get; set; }
 
