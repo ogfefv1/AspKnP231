@@ -1,6 +1,9 @@
 ﻿using AspKnP231.Services.Hash;
 using AspKnP231.Middleware.Demo;
 using AspKnP231.Services.Scoped;
+using AspKnP231.Services.Kdf;
+using AspKnP231.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +14,9 @@ builder.Services.AddControllersWithViews();
 // "якщо буде запит на інжекцію IHashService, то слід видати об'єкт Md5HashService"
 // builder.Services.AddSingleton<IHashService, Md5HashService>();
 builder.Services.AddHash();   // замінено на розширення (див. HashExtension)
+builder.Services.AddKdf();
 
 builder.Services.AddScoped<ScopedService>();    // без інтерфейсу - тільки один параметр типу
-
 
 builder.Services.AddDistributedMemoryCache();          // Налаштування сесій
 builder.Services.AddSession(options =>                 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state
@@ -23,6 +26,10 @@ builder.Services.AddSession(options =>                 // https://learn.microsof
     options.Cookie.IsEssential = true;                 // 
 });                                                    // 
 
+// Контекст даних (EF) реєструється як окремий сервіс зі своїми особливостями
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("MainDb")));
 
 var app = builder.Build();
 
@@ -33,7 +40,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();

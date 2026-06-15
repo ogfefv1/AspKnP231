@@ -3,11 +3,11 @@ using AspKnP231.Services.Scoped;
 
 namespace AspKnP231.Middleware.Demo
 {
-    public class DemoMiddleware
+    public class DataContext
     {
         private readonly RequestDelegate _next;          // Всі класи Middleware
                                                          // мають оголосити конструктор,
-        public DemoMiddleware(RequestDelegate next)      // який приймає посилання на 
+        public DataContext(RequestDelegate next)      // який приймає посилання на 
         {                                                // наступний Middleware - next
             _next = next;                                // та зберігає його для роботи.
         }                                                // Побудова ланцюга Middleware - 
@@ -18,7 +18,7 @@ namespace AspKnP231.Middleware.Demo
         // За такої схеми інжекція сервісів здійснюється у метод, утворюючи вільний
         // перелік та порядок параметрів 
         public async Task InvokeAsync(HttpContext context, IHashService hashService,
-            ScopedService scopedService)
+            IKdfService scopedService)
         {
             // Логіка "прямого ходу"
             // context - той самий HttpContext, що буде спільним як для 

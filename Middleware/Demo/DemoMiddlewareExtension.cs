@@ -4,7 +4,7 @@
     {
         public static IApplicationBuilder UseDemo(this IApplicationBuilder app)
         {
-            return app.UseMiddleware<DemoMiddleware>();
+            return app.UseMiddleware<DataContext>();
         }
     }
 }

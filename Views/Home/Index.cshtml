@@ -1,6 +1,8 @@
-﻿@{
+﻿@inject AspKnP231.Services.Kdf.IKdfService kdfService
+@{
     ViewData["Title"] = "Home Page";
 }
+@kdfService.Dk("380B5CB5-1578-49A2-BCAF-4A1CA8AA9BC2", "A946A088")
 
 <div class="text-center">
     <h1 class="display-4">Програмування з ASP.NET Core та EF Core</h1>

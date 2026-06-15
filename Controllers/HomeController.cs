@@ -11,10 +11,10 @@ namespace AspKnP231.Controllers
     public class HomeController : Controller
     {
 
-        private readonly ScopedService _scopedService;
+        private readonly IKdfService _scopedService;
         private readonly IHashService _hashService;           // Інжекція сервісу "через конструктор" -
                                                               // рекомендований спосіб, передбачає 
-        public HomeController(IHashService hashService, ScopedService scopedService)
+        public HomeController(IHashService hashService, IKdfService scopedService)
         {                                                     // readonly поле - посилання на сервіс та 
             _hashService = hashService;                       // параметр(и) конструктора того ж типу даних
             _scopedService = scopedService;
