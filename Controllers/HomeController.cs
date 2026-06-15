@@ -1,11 +1,55 @@
 using System.Diagnostics;
 using AspKnP231.Models;
+using AspKnP231.Models.Home;
+using AspKnP231.Services.Hash;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspKnP231.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly IHashService _hashService;           // Інжекція сервісу "через конструктор" -
+                                                              // рекомендований спосіб, передбачає 
+        public HomeController(IHashService hashService)       // readonly поле - посилання на сервіс та 
+        {                                                     // параметр(и) конструктора того ж типу даних
+            _hashService = hashService;                       // 
+        }
+
+        public IActionResult IoC()
+        {
+
+            ViewData["hash"] = _hashService.Digest("123");
+            ViewData["hashCode"] = _hashService.GetHashCode();
+            return View();
+        }
+
+        // Зв'язування моделі відбувається коли ми її зазначаємо вхідними параметром Action
+        // В старих ASP, якщо модель не є обов'язковою, то необхідно
+        // зазначати Nullable (HomeModelsFormModel?)
+        public IActionResult Models(HomeModelsFormModel formModel)
+        {
+            // Особливість нових ASP - модель форми, як об'єкт, створюється
+            // у будь-якому випадку, навіть якщо немає даних від форми
+            // З метою розрізнення випадків наявності/відсутності даних вводиться
+            // елемент форми, що відповідає за кнопку надсилання форми.
+
+            HomeModelsViewModel viewModel = new();
+            if (formModel.UserButton != null)
+            {
+                viewModel.FormModel = formModel;
+            }
+
+            return View(viewModel);
+        }
+        /* Д.З. Зробити сторінку з формою реєстрації нового користувача
+         * Описати усі необхідні моделі
+         */
+        public IActionResult Razor()
+        {
+            return View();
+        }
+
         public IActionResult Intro()
         {
             return View();
