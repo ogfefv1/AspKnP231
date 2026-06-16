@@ -10,6 +10,8 @@ namespace AspKnP231.Data
 
         public DbSet<Entities.UserRole> UserRoles { get; set; }
 
+        public DbSet<Entities.ShopSection> ShopSections { get; set; }
+
 
         public DataContext(DbContextOptions options) : base(options) { }
 
@@ -76,7 +78,7 @@ namespace AspKnP231.Data
                     Login = "DefaultAdministrator",
                     Salt = "380B5CB5-1578-49A2-BCAF-4A1CA8AA9BC2",
                     CreatedAt = new DateTime(2026, 3, 12),
-                    Dk = "4E455301C8628F110EADAB21A780FF766CFE0B95"
+                    Dk = "4E455301C8628F110EADAB21A780FF766CFE0B95"   // A946A088
                 });
         }
 

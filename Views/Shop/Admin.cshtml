@@ -1,0 +1,92 @@
+﻿@model AspKnP231.Models.Shop.Admin.ShopAdminViewModel
+@{
+    ViewData["Title"] = "Admin";
+    bool isInvalid;
+    String validationClass, errorMessages, fieldName;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Адміністрування крамниці</h1>
+</div>
+
+<form asp-action="SectionFormReceiver" method="post" enctype="multipart/form-data" class="border p-3">
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                @{
+                    fieldName = "Title";
+                    isInvalid = Model.ShopSectionModelState?.Keys.Contains(fieldName) ?? false;
+                    validationClass = Model.ShopSectionModelState == null ? "" : isInvalid ? "is-invalid" : "is-valid";
+                    errorMessages = isInvalid
+                    ? String.Join(", ", Model.ShopSectionModelState![fieldName]!.Errors.Select(e => e.ErrorMessage))
+                    : "";
+                }
+                <span class="input-group-text" id="user-name-addon"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control @validationClass" name="@fieldName"
+                       value="@Model.ShopSectionFormModel?.Title"
+                       placeholder="@fieldName" aria-label="@fieldName" aria-describedby="user-name-addon" />
+                <div class="invalid-feedback">
+                    @errorMessages
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                @{
+                    fieldName = "Description";
+                    isInvalid = Model.ShopSectionModelState?.Keys.Contains(fieldName) ?? false;
+                    validationClass = Model.ShopSectionModelState == null ? "" : isInvalid ? "is-invalid" : "is-valid";
+                    errorMessages = isInvalid
+                    ? String.Join(", ", Model.ShopSectionModelState![fieldName]!.Errors.Select(e => e.ErrorMessage))
+                    : "";
+                }
+                <span class="input-group-text" id="user-email-addon"><i class="bi bi-envelope-at"></i></span>
+                <input type="text" class="form-control @validationClass" name="@fieldName"
+                       value="@Model.ShopSectionFormModel?.Description"
+                       placeholder="@fieldName" aria-label="@fieldName" aria-describedby="user-email-addon" />
+                <div class="invalid-feedback">
+                    @errorMessages
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                @{
+                    fieldName = "Slug";
+                    isInvalid = Model.ShopSectionModelState?.Keys.Contains(fieldName) ?? false;
+                    validationClass = Model.ShopSectionModelState == null ? "" : isInvalid ? "is-invalid" : "is-valid";
+                    errorMessages = isInvalid
+                    ? String.Join(", ", Model.ShopSectionModelState![fieldName]!.Errors.Select(e => e.ErrorMessage))
+                    : "";
+                }
+                <span class="input-group-text" id="user-name-addon"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control @validationClass" name="@fieldName"
+                       value="@Model.ShopSectionFormModel?.Slug"
+                       placeholder="@fieldName" aria-label="@fieldName" aria-describedby="user-name-addon" />
+                <div class="invalid-feedback">
+                    @errorMessages
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="user-avatar"><i class="bi bi-person-circle"></i></label>
+                <input type="file" class="form-control" id="user-avatar" name="ImageFile" />
+            </div>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-success" name="Button" value="ShopSection">Додати</button>
+        </div>
+    </div>
+
+</form>

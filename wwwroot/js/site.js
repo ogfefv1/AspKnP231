@@ -63,7 +63,7 @@ document.addEventListener('submit', e => {
                 alert("У вході відмовлено")
             }
             else {
-                console.log(j);
+                window.location.reload();
             }
         });
     }

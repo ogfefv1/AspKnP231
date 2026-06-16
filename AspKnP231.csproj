@@ -17,6 +17,7 @@
 	<ItemGroup>
 	  <Folder Include="wwwroot\img\" />
 	  <Folder Include="LocalStorage\" />
+		    <Folder Include="Middleware\Auth\Token\" />						        <Folder Include="Middleware\Auth\Token\" />		
 	</ItemGroup>
 
 	<ItemGroup>

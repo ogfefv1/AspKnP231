@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspKnP231.Controllers
 {
-    public class StorageController(IStorageService storageService) : Controller
+    public class SectionsController(IStorageService storageService) : Controller
     {
         private readonly IStorageService _storageService = storageService;
 
@@ -15,6 +15,8 @@ namespace AspKnP231.Controllers
             String mimeType = ext switch
             {
                 ".png" => "image/png",
+                ".jpg" => "image/jpeg",
+                ".webp" => "image/webp",
                 _ => "application/octet-stream"
             };
             try

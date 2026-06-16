@@ -1,4 +1,6 @@
-﻿namespace AspKnP231.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace AspKnP231.Data.Entities
 {
     public class UserData
     {
@@ -14,6 +16,7 @@
 
 
         // інверсна навігаційна властивість - через UserAccess.UserId 
+        [JsonIgnore]
         public ICollection<UserAccess> UserAccesses { get; set; } = [];
 
     }

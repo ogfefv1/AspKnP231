@@ -1,10 +1,8 @@
-﻿namespace AspKnP231.Services.Storage
+﻿namespace AspKnP231.Services.Scoped
 {
-    // Сервіс збереження та доступу до файлів, завантажених формами
-    public interface IStorageService
+    // Сервіс для демонстрації Scoped-життевого циклу
+    public class ScopedService
     {
-        public String Save(IFormFile formFile);
-
-        public byte[] Load(String filename);
+        public String GetName() => "I am ScopedService";
     }
 }

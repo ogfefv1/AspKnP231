@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using AspKnP231.Data.Entities
+@using System.Security.Claims
+@{
+    // Перевіряємо наявність авторизації
+    bool isAuthorized =
+        Context.User.Identity?.IsAuthenticated ?? false;
+    String? userAvatar = isAuthorized
+        ? Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Thumbprint)?.Value
+        : null;
+    String? userName = isAuthorized
+        ? Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value
+        : null;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -50,18 +63,45 @@
                         <li class="nav-item" title="Робота з формами">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Forms"><i class="bi bi-card-checklist header-icon"></i></a>
                         </li>
+                        <li class="nav-item" title="Крамниця">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Shop" asp-action="Index"><i class="bi bi-bag-check header-icon"></i></a>
+                        </li>
                     </ul>
-                    <div>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-outline-success me-2"
-                                data-bs-toggle="modal" data-bs-target="#authModal">
-                            <i class="bi bi-box-arrow-in-right"></i>
-                        </button>
+                    @if (isAuthorized)
+                    {
+                        <div>
+                            <a asp-controller="User" asp-action="Profile"
+                               title="Кабінет користувача"
+                               class="btn btn-outline-secondary">
+                                @if (String.IsNullOrEmpty(userAvatar))
+                                {
+                                    <span>@(((userName ?? "").Length > 0) ? userName![0] : 'P')</span>
+                                }
+                                else
+                                {
+                                    <img src="/Storage/Item/@userAvatar" alt="Ava" style="max-width: 30px; max-height: 30px" />
+                                }
+                            </a>
 
-                        <a asp-controller="User" asp-action="SignUp"
-                           title="Реєстрація нового користувача"
-                           class="btn btn-outline-secondary"><i class="bi bi-person-add"></i></a>
-                    </div>
+                            <a href="?logout"
+                               title="Вихід з авторизованого режиму"
+                               class="btn btn-outline-secondary"><i class="bi bi-box-arrow-right"></i></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-success me-2"
+                                    data-bs-toggle="modal" data-bs-target="#authModal">
+                                <i class="bi bi-box-arrow-in-right"></i>
+                            </button>
+
+                            <a asp-controller="User" asp-action="SignUp"
+                               title="Реєстрація нового користувача"
+                               class="btn btn-outline-secondary"><i class="bi bi-person-add"></i></a>
+                        </div>
+                    }
 
                 </div>
             </div>

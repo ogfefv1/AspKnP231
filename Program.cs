@@ -5,6 +5,7 @@ using AspKnP231.Services.Kdf;
 using AspKnP231.Services.Storage;
 using AspKnP231.Data;
 using Microsoft.EntityFrameworkCore;
+using AspKnP231.Middleware.Auth.Session;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,7 @@ builder.Services.AddScoped<ScopedService>();    // без інтерфейсу -
 builder.Services.AddDistributedMemoryCache();          // Налаштування сесій
 builder.Services.AddSession(options =>                 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state
 {                                                      // 
-    options.IdleTimeout = TimeSpan.FromSeconds(10);    // 
+    options.IdleTimeout = TimeSpan.FromMinutes(10);    // 
     options.Cookie.HttpOnly = true;                    // 
     options.Cookie.IsEssential = true;                 // 
 });                                                    // 
@@ -34,6 +35,13 @@ builder.Services.AddDbContext<AspKnP231.Data.DataContext>(options =>         /*<
         builder.Configuration.GetConnectionString("MainDb")));
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AspKnP231.Data.DataContext>();        /*< DataContext > - error*/
+    db.Database.Migrate();
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -53,6 +61,7 @@ app.UseSession();       // Включення сесій https://learn.microsoft
 // тому порядок важливо дотримуватись, якщо один обробник залежить від інших
 // (на відміну від сервісів, порядок додавання яких не грає ролі)
 app.UseDemo();
+app.UseAuthSession();
 
 
 app.MapControllerRoute(
